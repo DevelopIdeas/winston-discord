@@ -18,7 +18,7 @@ const noColor = 0x36393E;
 module.exports = class DiscordLogger extends Transport {
 	constructor(opts) {
 		super(opts);
-		this.name = opts.name || 'DiscordLogger';
+		this.serviceName = opts.serviceName || 'DiscordLogger';
 		this.level = opts.level || 'info';
 		this.level = this.level.toLowerCase();
 	
@@ -110,6 +110,9 @@ module.exports = class DiscordLogger extends Transport {
 				// Request body
 				let body = {
 					embeds: [{
+						author: {
+							name: `${this.serviceName}`
+						},
 						title: level.charAt(0).toUpperCase() + level.slice(1),
 						description: msg,
 						color: this.colors ? this.colors[level] : noColor,
